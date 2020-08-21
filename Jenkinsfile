@@ -3,6 +3,11 @@ pipeline{
         docker {
             image 'maven:3-alpine'
             args '-v /root/.m2:/root/.m2'
+            label 'Build'
+        }
+        docker {
+            image 'node:alpine'
+            label 'node'
         }
     }
     stages{
@@ -20,6 +25,11 @@ pipeline{
                 failure{
                     echo "========A execution failed========"
                 }
+            }
+        }
+        stage("node"){
+            steps{
+                sh "node -v"
             }
         }
     }
